@@ -1,15 +1,28 @@
-import '@babel/polyfill';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React, { FC } from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './components/app/App';
+import * as serviceWorker from './serviceWorker';
+import { hot } from 'react-hot-loader/root';
 
-import App from './App';
+const rootEl = document.getElementById('root')
 
-const render = () => {
-  const root = document.createElement('div');
-  root.setAttribute("id", "root");
-  document.body.appendChild(root);
+ReactDOM.render(
+  <App />,
+  rootEl
+)
 
-  ReactDOM.render(<App />, root);
-};
+if (module.hot) {
+  module.hot.accept('./components/app/App', () => {
+    const NextApp = require('./components/app/App').default
+    ReactDOM.render(
+      <NextApp />,
+      rootEl
+    )
+  })
+}
 
-render();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
