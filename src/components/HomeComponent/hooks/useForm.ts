@@ -51,7 +51,7 @@ const useForm = (): FormState => {
     }
 
     async function fetchBook() {
-      let response = await fetch('http://localhost:8000/')
+      let response = await fetch(`http://www.omdbapi.com/?s=${search}&apikey=5d1a08fe`)
       let jsonBody = await response.json()
       setStatus(ENUM_STATUS.RESOLVED);
       setSearchResults(jsonBody)

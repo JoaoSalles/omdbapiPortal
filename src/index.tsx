@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
-import { hot } from 'react-hot-loader/root';
 
 const rootEl = document.getElementById('root')
 
