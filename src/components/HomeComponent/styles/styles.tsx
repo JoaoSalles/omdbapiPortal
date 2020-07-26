@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { BLACK_LIGHT, BLACK_DARK, BLACK, WHITE } from '../../../constants/styles/colors'
 
 export const FormElement = styled.form`
     display: flex;
@@ -12,7 +11,7 @@ export const FormElement = styled.form`
         top:0;
     }
 
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 650px) {
         justify-content: normal;
     }
 `;
@@ -39,7 +38,7 @@ export const InputElement = styled.input`
         width: 65px;
     }
 
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 650px) {
         &[type=text] {
             border-left: none;
             width: 100%;
@@ -53,20 +52,5 @@ export const InputElement = styled.input`
         &[type=submit] {
             border-radius: 0px;
         }
-    }
-`;
-
-
-
-export const ReturnButton = styled.button`
-    background: ${BLACK};
-    border: none;
-    color: ${WHITE};
-    margin: 5px 10px;
-    height: 50px;
-    width: 50px;
-
-    &:hover{
-    background: ${BLACK_LIGHT}
     }
 `;

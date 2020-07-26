@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import useForm from './hooks/useForm';
 import classNames from 'classnames';
 import { FormElement, InputElement } from './styles/styles';
+import MoviesList from '../MoviesList';
 
 function HomeComponent() {
-    // let location = useLocation()
-    const { onClickSubmit, onChangeSearch, search, searchResults, onClickReturn, showList, status } = useForm();
+    const { 
+        onClickSubmit,
+        onChangeSearch,
+        search,
+        searchResults,
+        showList,
+        status,
+        currentPage,
+        maxPage,
+        onChangePagination
+    } = useForm();
+
+    // prevent rerender when typing in input
+    const memoizedErrors = useMemo(() => 
+        <MoviesList 
+            status={status}
+            showList={showList}
+            searchResults={searchResults}
+            currentPage={currentPage}
+            maxPage={maxPage}
+            onChangePagination={onChangePagination} 
+        />
+    , [status, showList, searchResults, currentPage, maxPage]);
 
     if (status === "idle") {
         return <div>Loading...</div>
@@ -17,7 +39,7 @@ function HomeComponent() {
             <InputElement data-testid="form-textInput" type="text" value={search} onChange={ (event) => onChangeSearch(event.target.value)} placeholder="Procure seu Filme" />
             <InputElement data-testid="form-submit" type="submit" value="Buscar" />
         </FormElement>
-        { status === 'pedding' ?  <div>Loading...</div> : null }
+        {memoizedErrors}
         </>
     )
 }
