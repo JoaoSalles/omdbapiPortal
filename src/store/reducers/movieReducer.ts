@@ -13,6 +13,11 @@ export const movieReducer = (state: any, action: any ) => {
             ...state,
             movies: [...state.movies, ...action.payload]
           }
+      case ACTION_TYPES.SAVE_SEARCH:
+        return {
+          ...state,
+          search: action.payload
+        }
       default:
         return state;
     }

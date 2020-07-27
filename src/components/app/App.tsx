@@ -8,6 +8,7 @@ import { MainDiv } from './styles/styles';
 import Context from './../../utils/context';
 import { movieReducer } from './../../store/reducers/movieReducer';
 import HomeComponent from '../HomeComponent'
+import MovieComponent from '../MovieComponent'
 
 const App = () => {
   const [state, dispatch] = useReducer(movieReducer, { movies: []});
@@ -22,9 +23,12 @@ const App = () => {
       <Context.Provider value={contextValue}>
         <MainDiv>
             <Switch>
-              <Route path="/">
-                <HomeComponent />
-              </Route>
+              <Route path="/movie/:imdbID"
+                component={MovieComponent}
+              />
+              <Route path="/"
+              component={HomeComponent}
+              />
             </Switch>
         </MainDiv>
       </Context.Provider>

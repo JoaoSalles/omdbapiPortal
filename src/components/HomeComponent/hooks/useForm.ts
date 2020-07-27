@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { SearchResultType, http } from '../../../types/SearchResultType';
-import { INITIAL_FETCH, FETCH_MORE_MOVIES } from './../../../store/actions/movieActions';
+import { INITIAL_FETCH, FETCH_MORE_MOVIES, SAVE_SEARCH } from './../../../store/actions/movieActions';
 import Context from './../../../utils/context';
 
 interface FormState {
@@ -47,6 +47,7 @@ const useForm = (): FormState => {
     useEffect(() => {
         if (onSubmit) {
           fetchFirstRequest();
+          dispatch({ type: SAVE_SEARCH, payload: search })
           setStatus(ENUM_STATUS.PEDDING);
           setshowList(true);
           setOnSubmit(false);
@@ -56,9 +57,14 @@ const useForm = (): FormState => {
 
     useEffect(() => {
         setStatus(ENUM_STATUS.RESOLVED);
-        const auxTotalResults = state.totalResults || 0;
-        setMaxPage(Math.floor(auxTotalResults / 6))
-        setMaxPageDecimal(Math.floor(auxTotalResults / 10))
+        if(state.totalResults) {
+            const auxTotalResults = state.totalResults;
+            
+            setMaxPage(Math.floor(auxTotalResults / 6))
+            setMaxPageDecimal(Math.floor(auxTotalResults / 10))
+            setshowList(true);
+            setsearch(state.search);
+        }
     }, []);
 
     const onChangeSearch = (URL: string): void => {
@@ -73,6 +79,8 @@ const useForm = (): FormState => {
         setPageSearch(2);
         setMaxPage(Math.floor(auxTotalResults / 6))
         setMaxPageDecimal(Math.floor(auxTotalResults / 10))
+      } else {
+        dispatch({ type: INITIAL_FETCH, payload: { movies: [], totalResults: 0 }})
       }
       setStatus(ENUM_STATUS.RESOLVED);
     }
@@ -80,7 +88,6 @@ const useForm = (): FormState => {
     async function fetchNextPage() {
         let response = await http<FetchResponseInterface>(`http://www.omdbapi.com/?s=${search}&apikey=5d1a08fe&page=${pageSearch}`)
         if(response.parsedBody && response.parsedBody.Response !== "False") {
-            const newResults = response.parsedBody.Search || [];
             dispatch({ type: FETCH_MORE_MOVIES, payload: response.parsedBody.Search })
             setPageSearch(pageSearch + 1);
         }

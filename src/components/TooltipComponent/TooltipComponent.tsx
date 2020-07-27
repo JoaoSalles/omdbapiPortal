@@ -1,6 +1,6 @@
 import React from 'react';
 import { MovieType } from '../../types/SearchResultType';
-import { ToolTipElement, ButtonContainer} from './styles/styles';
+import { ToolTipElement, ButtonContainer, LinkElement } from './styles/styles';
 
 interface TooltipProp {
     movie: MovieType
@@ -14,9 +14,11 @@ function TooltipComponent(props: TooltipProp) {
             <p>Title: {Title}</p>
             <p>Type: {Type}</p>
             <p>Year: {Year}</p>
-            <ButtonContainer>
-                <button>+Info</button>
-            </ButtonContainer>
+                <LinkElement to={`/movie/${imdbID}`}>
+                    <ButtonContainer>
+                        +Info
+                    </ButtonContainer>
+                </LinkElement>
         </ToolTipElement>
     )
 }

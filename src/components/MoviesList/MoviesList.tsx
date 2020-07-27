@@ -15,7 +15,7 @@ interface Props {
     currentPage: number;
     maxPage: number;
     onChangePagination: (newPage: number) => void;
-  }
+}
 
 function MoviesList(props: Props) {
     const { status, showList, searchResults, currentPage, maxPage, onChangePagination } = props;
@@ -38,7 +38,7 @@ function MoviesList(props: Props) {
                     })}
                 </MoviesDisplay>
             </GridContainer>
-            <PaginationButton onClick={ () => {onChangePagination(currentPage+1)}} disabled={maxPage === currentPage}><SkipNextOutlinedIcon /></PaginationButton>
+            <PaginationButton onClick={ () => {onChangePagination(currentPage+1)}} disabled={maxPage <= currentPage}><SkipNextOutlinedIcon /></PaginationButton>
         </ListMovieContainer>
     )
 }
