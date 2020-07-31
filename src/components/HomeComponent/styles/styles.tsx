@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BLACK_LIGHT, BLACK_DARK, BLACK, WHITE } from '../../../constants/styles/colors'
 
 export const FormElement = styled.form`
     display: flex;
@@ -36,6 +37,11 @@ export const InputElement = styled.input`
         box-sizing: border-box;
         margin: 1px 0;
         width: 65px;
+
+        &:hover {
+            background: ${BLACK};
+            color: ${WHITE};
+        }
     }
 
     @media only screen and (max-width: 650px) {

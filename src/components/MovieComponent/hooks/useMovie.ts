@@ -46,10 +46,10 @@ const useMovie = (imdbID: string): MovieHookReturn => {
         let response = await http<FetchResponseInterface>(`http://omdbapi.com/?i=${imdbID}&apikey=5d1a08fe`)
         if(response.parsedBody && response.parsedBody.Response !== "False") {
             setMovieInfo(response.parsedBody);
+            setStatus(ENUM_STATUS.RESOLVED);
         } else {
             setStatus(ENUM_STATUS.ERROR);
         }
-        setStatus(ENUM_STATUS.RESOLVED);
       }
 
     useEffect(() => {

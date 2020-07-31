@@ -1,6 +1,7 @@
 import React from 'react';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
-import { GridContainer, MovieInfoContainer, InfoElement, LinkElement } from './styles/styles';
+import { GridContainer, MovieInfoContainer, InfoElement, LinkElement, NoMovieElement } from './styles/styles';
+import LoadingComponent from '../LoadingComponent';
 import useMovie from './hooks/useMovie';
 
 interface Props {
@@ -10,14 +11,25 @@ interface Props {
 function MovieComponent(props: Props) {
     const { match: { params } } = props;
 
-    const {status, movieInfo } = useMovie(params.imdbID);
+    const { status, movieInfo } = useMovie(params.imdbID);
 
     if (status === "idle" || status === "pedding") {
-        return <div>Loading...</div>
+        return <LoadingComponent/>
     }
 
-    return (
-        <MovieInfoContainer>
+    function noMovie() {
+        return (
+            <NoMovieElement>
+                <LinkElement to={`/`}>
+                    <button><KeyboardReturnIcon/></button>
+                </LinkElement>
+                <p>Filme não encontrado encontrado, consulte novamente.</p>
+            </NoMovieElement>
+        )
+    }
+
+    function movieDisplay() {
+        return (
             <GridContainer>
                 <div className="main-info-area">
                     <LinkElement to={`/`}>
@@ -47,6 +59,12 @@ function MovieComponent(props: Props) {
                     <InfoElement><b>Plot:</b> {movieInfo.Plot}</InfoElement>
                 </div>
             </GridContainer>
+        )
+    }
+
+    return (
+        <MovieInfoContainer>
+            {status === 'error' ? noMovie() : movieDisplay()}
         </MovieInfoContainer>
     )
 }

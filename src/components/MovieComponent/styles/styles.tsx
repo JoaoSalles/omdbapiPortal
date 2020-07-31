@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { BLACK, WHITE } from '../../../constants/styles/colors'
 
 export const MovieInfoContainer = styled.div`
     align-items: center;
     display: flex;
     min-height: 100%;
+    height: 100%;
     justify-content: center;
     min-height: 700px;
     width: 100%;
@@ -26,7 +28,6 @@ export const MovieInfoContainer = styled.div`
     .main-info-area {
         grid-area: mainInfo;
         height: 100%;
-        overflow: hidden;
         width: 100%;
     }
 
@@ -34,7 +35,6 @@ export const MovieInfoContainer = styled.div`
         border-top: 1px double #1f181f;
         grid-area: sub-info-area;
         height: 100%;
-        overflow: hidden;
         width: 100%;
     }
 `;
@@ -63,7 +63,11 @@ export const GridContainer = styled.div`
     }
 `;
 
-
+export const NoMovieElement = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
 export const InfoElement = styled.p`
     margin: 10px;
@@ -75,5 +79,12 @@ export const LinkElement = styled(Link)`
 
     button {
         margin: 20px;
+
+        &:hover {
+            background: ${BLACK};
+            border-color: ${WHITE};
+            border-radius: 5px;
+            color: ${WHITE};
+        }
     }
 `;

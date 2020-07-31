@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import useForm from './hooks/useForm';
 import classNames from 'classnames';
 import { FormElement, InputElement } from './styles/styles';
+import LoadingComponent from '../LoadingComponent';
 import MoviesList from '../MoviesList';
 
 function HomeComponent() {
@@ -30,7 +31,7 @@ function HomeComponent() {
     , [status, showList, searchResults, currentPage, maxPage]);
 
     if (status === "idle") {
-        return <div>Loading...</div>
+        return <LoadingComponent/>
     }
 
     return (

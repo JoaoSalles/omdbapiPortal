@@ -1,11 +1,15 @@
 import React from 'react';
 import { render, fireEvent, waitForElement } from '@testing-library/react';
 import HomeComponent from './HomeComponent';
-
+import Context from './../../utils/context';
 
 describe('Test for HomeComponent', () =>{
   it('Should render input and change it value and call search', async () => {
-    const { getByTestId, getByText } = render(<HomeComponent/>)
+    const { getByTestId, getByText } = render(
+      <Context.Provider value={{state: { totalResults: 0, movies: [] }, dispatch: () => {}}}>
+        <HomeComponent/>
+      </Context.Provider>
+    )
 
     const inputField = await waitForElement(
       () => getByTestId('form-textInput')
